@@ -2,11 +2,20 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/about">About</router-link>  |
+      <router-link to="/argu/lele">Argu</router-link>  |
+      <router-link to="/info">infro</router-link>
     </div>
     <router-view/>
+    <router-view name="tel"/>
+    <router-view name="email"/>
   </div>
 </template>
+<script>
+export default {
+  name: ''
+}
+</script>
 
 <style lang="less">
 #app {

@@ -1,18 +1,53 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    this.is home page
+    <Button type="primary" @click="handleClick('back')">back</Button>
+    <Button type="warning" @click="handleClick('push')">push</Button>
+    <Button type="error" @click="handleClick('replace')">replace</Button>
+
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
   name: 'home',
   components: {
-    HelloWorld
+
+  },
+  // 组件内守卫
+  // beforeRouteEnter (to, from, next) {
+
+  // },
+  // beforeRouteLeave (to, from, next) {
+
+  // },
+  // beforeRouteUpdate (to, from, next) {
+
+  // },
+  methods: {
+    handleClick (type) {
+      switch (type) {
+        case 'back':
+          this.$router.go(-1)
+          // this.$router.back()
+          break
+        case 'push':
+          // this.$router.push('./info')
+          // this.$router.push({ name: 'about', query: { name: 'zhangsan' } })
+          this.$router.push({
+            name: 'argu',
+            params: {
+              name: 'zhangsan'
+            }
+          })
+          break
+        case 'replace':
+          this.$router.replace({ name: 'about' })
+          break
+        default:console.log('type')
+      }
+    }
   }
 }
 </script>
