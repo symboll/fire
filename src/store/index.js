@@ -5,7 +5,7 @@ import state from './state'
 import mutations from './mutations'
 import actions from './actions'
 import user from './module/user'
-
+import plugin from './plugin'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -14,5 +14,8 @@ export default new Vuex.Store({
   actions,
   modules: {
     user
-  }
+  },
+  plugins: [
+    plugin
+  ]
 })
