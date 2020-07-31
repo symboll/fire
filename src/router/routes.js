@@ -40,6 +40,11 @@ export default [
     }
   },
   {
+    path: '/render-page',
+    name: 'render-page',
+    component: () => import(/* webpackChunkName: "render-page" */'@/views/render-page.vue')
+  },
+  {
     path: '/redirect',
     // redirect: '/',
     // redirect: { name: 'home' },
