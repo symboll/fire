@@ -10,8 +10,6 @@ import './theme/index.less'
 Vue.use(ViewUI)
 Vue.config.productionTip = false
 
-// let count = 1
-
 new Vue({
   router,
   store,
