@@ -17,6 +17,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import routes from './routes'
+import { setTitle } from '@/lib/util'
 
 Vue.use(Router)
 
@@ -30,4 +31,8 @@ const router = new Router({
 // router.afterEach((to, from)=> {})
 // router.beforeResolve((to, from, next)=> {})
 
+router.beforeEach((to, from, next) => {
+  setTitle(to.meta)
+  next()
+})
 export default router

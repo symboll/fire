@@ -1,6 +1,5 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
 
     <h1>key: {{ key }}</h1>
     <!-- <h1>moduleKey:{{ moduleKey }}</h1> -->

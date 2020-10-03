@@ -6,9 +6,11 @@
       <router-link to="/argu/lele">Argu</router-link>  |
       <router-link to="/info">infro</router-link>
     </div>
-    <router-view/>
-    <router-view name="tel"/>
-    <router-view name="email"/>
+    <transition-group name="route">
+      <router-view key="default"/>
+      <router-view key="tel" name="tel"/>
+      <router-view key="email" name="email"/>
+    </transition-group>
   </div>
 </template>
 <script>
@@ -18,6 +20,24 @@ export default {
 </script>
 
 <style lang="less">
+.route-enter{
+  opacity: 0;
+}
+.route-enter-active{
+  transition: opacity .5s ease;
+}
+.route-enter-to {
+  opacity: 1;
+}
+.route-leave {
+  opacity: 1;
+}
+.route-leave-active {
+  transition: opacity .5s ease;
+}
+.route-leave-to {
+  opacity: 0;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

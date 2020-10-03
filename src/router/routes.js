@@ -4,11 +4,14 @@ export default [
   {
     path: '/',
     name: 'home',
-    component: Home
+    component: Home,
     // 独享守卫
     // beforeEnter: (to, from, next) => {
     //   // ...
     // }
+    meta: {
+      title: 'Home'
+    }
   },
   {
     path: '/about',
@@ -34,7 +37,7 @@ export default [
     path: '/info',
     name: 'info',
     components: {
-      default: () => import('@/views/About.vue'),
+      default: () => import('@/views/default.vue'),
       email: () => import('@/views/email.vue'),
       tel: () => import('@/views/tel.vue')
     }
