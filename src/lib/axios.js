@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Spin } from 'view-design'
 import { baseURL } from '../config'
 // import { getToken } from '@/lib/util'
 
@@ -10,7 +11,7 @@ class HttpRequest {
   getInsideConfig () {
     const config = {
       baseURL: this.baseUrl,
-      withCredentials: true,
+      // withCredentials: true,
       headers: {
         'Content-Type': 'application/json'
       }
@@ -20,7 +21,7 @@ class HttpRequest {
   interceptors (instance, url) {
     instance.interceptors.request.use(config => {
       if (!Object.keys(this.queue).length) {
-
+        Spin.show()
       }
       this.queue[url] = true
       // config.headers['token'] = getToken()
@@ -30,10 +31,12 @@ class HttpRequest {
     })
     instance.interceptors.response.use(res => {
       Reflect.deleteProperty(this.queue, url)
-      const { data } = res
-      return data
+      Spin.hide()
+      const { data, status } = res
+      return { data, status }
     }, error => {
       Reflect.deleteProperty(this.queue, url)
+      Spin.hide()
       return Promise.reject(error)
     })
   }

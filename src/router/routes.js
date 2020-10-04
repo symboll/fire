@@ -14,6 +14,11 @@ export default [
     }
   },
   {
+    path: '/count-up',
+    name: 'count-up',
+    component: () => import('@/views/show-page-countup.vue')
+  },
+  {
     path: '/about',
     name: 'about',
     // route level code-splitting
