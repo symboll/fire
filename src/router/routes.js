@@ -14,11 +14,6 @@ export default [
     }
   },
   {
-    path: '/count-up',
-    name: 'count-up',
-    component: () => import('@/views/show-page-countup.vue')
-  },
-  {
     path: '/about',
     name: 'about',
     // route level code-splitting
@@ -46,6 +41,16 @@ export default [
       email: () => import('@/views/email.vue'),
       tel: () => import('@/views/tel.vue')
     }
+  },
+  {
+    path: '/count-up',
+    name: 'count-up',
+    component: () => import('@/views/show-page-countup.vue')
+  },
+  {
+    path: '/split-pane',
+    name: 'split-pane',
+    component: () => import('@/views/show-page-splitpane.vue')
   },
   {
     path: '/render-page',
