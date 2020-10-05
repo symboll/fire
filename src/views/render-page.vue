@@ -1,18 +1,23 @@
 <template>
   <div>
-    <ul @click="handleClick">
+    <!-- <ul @click="handleClick">
       <li
         @click.stop="handleClick"
         v-for="item in list"
         :key="item.id">
         {{ item.name }}
       </li>
-    </ul>
+    </ul> -->
+    <list :list="list" :render="renderFunction"></list>
   </div>
 </template>
 <script>
+import List from '@/components/renderFunc'
 export default {
   name: 'render-page',
+  components: {
+    List
+  },
   data () {
     return {
       list: [
@@ -24,6 +29,15 @@ export default {
   methods: {
     handleClick (e) {
       console.log(e)
+    },
+    renderFunction (h, name) {
+      // return h('i', {
+      //   style: {
+      //     color: 'red'
+      //   }
+      // }, name)
+      return <i on-click={this.handleClick} style={{ color: 'red' }}>{ name }</i>
+      // 组件绑定事件 nativeOn-  / on-
     }
   }
 }

@@ -45,17 +45,27 @@ export default [
   {
     path: '/count-up',
     name: 'count-up',
-    component: () => import('@/views/show-page-countup.vue')
+    component: () => import('@/views/count-up-page.vue')
   },
   {
     path: '/split-pane',
     name: 'split-pane',
-    component: () => import('@/views/show-page-splitpane.vue')
+    component: () => import('@/views/split-pane-page.vue')
   },
   {
     path: '/render-page',
     name: 'render-page',
     component: () => import(/* webpackChunkName: "render-page" */'@/views/render-page.vue')
+  },
+  {
+    path: '/render-page2',
+    name: 'render-page2',
+    component: () => import(/* webpackChunkName: "render-page2" */'@/views/render-page2.js')
+  },
+  {
+    path: '/slot-scope',
+    name: 'slot-scope',
+    component: () => import('@/views/slot-scope-page.vue')
   },
   {
     path: '/redirect',
