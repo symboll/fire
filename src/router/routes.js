@@ -68,6 +68,11 @@ export default [
     component: () => import('@/views/slot-scope-page.vue')
   },
   {
+    path: '/recursive-page',
+    name: 'recursive-page',
+    component: () => import('@/views/recursive-page.vue')
+  },
+  {
     path: '/redirect',
     // redirect: '/',
     // redirect: { name: 'home' },
