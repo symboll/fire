@@ -17,8 +17,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import routes from './routes'
-import { setTitle } from '@/lib/util'
-
+import { setTitle, setToken, getToken } from '@/lib/util'
+import store from '@/store'
 Vue.use(Router)
 
 const router = new Router({
@@ -33,6 +33,19 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   setTitle(to.meta)
-  next()
+  const token = getToken()
+  if (token && token !== '') {
+    store.dispatch('authorization').then(() => {
+      if (to.name === 'login') {
+        next({ name: 'home' })
+      } else { next() }
+    }).catch(_ => {
+      setToken('')
+      if (from.name !== 'login') next({ name: 'login' })
+    })
+  } else {
+    if (to.name === 'login') next()
+    else next({ name: 'login' })
+  }
 })
 export default router

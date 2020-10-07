@@ -73,6 +73,11 @@ export default [
     component: () => import('@/views/recursive-page.vue')
   },
   {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/login.vue')
+  },
+  {
     path: '/redirect',
     // redirect: '/',
     // redirect: { name: 'home' },

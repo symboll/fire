@@ -1,19 +1,27 @@
 <template>
   <div class="home">
-    this.is home page
+    <div>appUserName: {{username}}</div>
+    <div>this.is home page</div>
     <Button type="primary" @click="handleClick('back')">back</Button>
     <Button type="warning" @click="handleClick('push')">push</Button>
     <Button type="error" @click="handleClick('replace')">replace</Button>
-
+    <div class="logout-btn">
+      <Button type="primary" @click="handleLogout">退出登录</Button>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
+import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'home',
   components: {
 
+  },
+  computed: {
+    ...mapState({
+      username: state => state.user.username
+    })
   },
   // 组件内守卫
   // beforeRouteEnter (to, from, next) {
@@ -26,6 +34,13 @@ export default {
 
   // },
   methods: {
+    ...mapMutations([
+      'LOGOUT'
+    ]),
+    handleLogout () {
+      this.LOGOUT()
+      this.$router.push({ name: 'login' })
+    },
     handleClick (type) {
       switch (type) {
         case 'back':
@@ -51,3 +66,8 @@ export default {
   }
 }
 </script>
+<style lang="less" scoped>
+.logout-btn{
+  padding: 10px;
+}
+</style>

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Spin } from 'view-design'
 import { baseURL } from '../config'
-// import { getToken } from '@/lib/util'
+import { getToken } from '@/lib/util'
 
 class HttpRequest {
   constructor (baseUrl = baseURL) {
@@ -24,7 +24,7 @@ class HttpRequest {
         Spin.show()
       }
       this.queue[url] = true
-      // config.headers['token'] = getToken()
+      config.headers['Authorization'] = `Bearer ${getToken()}`
       return config
     }, error => {
       return Promise.reject(error)
