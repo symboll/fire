@@ -1,4 +1,4 @@
-# fire
+# vue2.0
 
 ## Project setup
 ```

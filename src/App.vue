@@ -1,11 +1,11 @@
 <template>
   <div class="app">
-    <div class="nav">
+    <!-- <div class="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>  |
       <router-link to="/argu/lele">Argu</router-link>  |
       <router-link to="/info">infro</router-link>
-    </div>
+    </div> -->
     <transition-group name="route">
       <router-view key="default"/>
       <router-view key="tel" name="tel"/>
@@ -15,7 +15,7 @@
 </template>
 <script>
 export default {
-  name: ''
+  name: 'app'
 }
 </script>
 

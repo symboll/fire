@@ -1,17 +1,24 @@
 import Home from '@/views/Home.vue'
+import Layout from '@/views/layout.vue'
 
 export default [
   {
     path: '/',
-    name: 'home',
-    component: Home,
+    name: 'layout',
+    component: Layout,
     // 独享守卫
     // beforeEnter: (to, from, next) => {
     //   // ...
     // }
     meta: {
-      title: 'Home'
-    }
+      title: 'layout'
+    },
+    children: [
+      {
+        path: 'home',
+        component: Home
+      }
+    ]
   },
   {
     path: '/about',
