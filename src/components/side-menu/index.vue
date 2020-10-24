@@ -16,13 +16,12 @@
     </Menu>
     <div v-else>
       <template v-for="item in list">
-        <!-- <Dropdown placement="right-start" v-if="item.children" :key="item.path">
-          <div class="drop_down_icon">
-            <Icon :type="item.meta.icon" color="white" :size="20" />
-          </div>
-          <re-drop-down :parent="item" />
-        </Dropdown> -->
-        <re-drop-down v-if="item.children" :key="item.path" :parent="item" />
+        <re-drop-down
+          v-if="item.children"
+          :key="item.path"
+          :parent="item"
+          :isTopLevel="true"
+        />
 
         <div v-else :key="item.path" class="drop_down_icon">
           <Tooltip

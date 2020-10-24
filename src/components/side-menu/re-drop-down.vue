@@ -2,10 +2,18 @@
   <div class="drop_down">
     <Dropdown placement="right-start">
       <div class="drop_down_icon">
-        <Icon :type="parent.meta.icon" color="white" :size="20" />
+        <Icon v-if="isTopLevel" :type="parent.meta.icon" color="white" :size="20" />
+        <div v-else class="drop_down_icon_text">
+          {{ sideMenuText(parent) }}
+          <Icon type="ios-arrow-forward" />
+        </div>
       </div>
       <DropdownMenu slot="list" >
-        <DropdownItem disabled>
+        <DropdownItem
+          v-if="isTopLevel"
+          disabled
+          @click.native="(parent.name)"
+        >
           {{ sideMenuText(parent) }}
           <Icon type="ios-arrow-down"></Icon>
         </DropdownItem>
@@ -33,6 +41,10 @@ export default {
     parent: {
       type: Object,
       default: () => ({})
+    },
+    isTopLevel: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
@@ -40,7 +52,7 @@ export default {
       return item.meta && item.meta.title ? item.meta.title : item.name
     },
     handleClick (name) {
-      if (this.$route === name) return
+      if (this.$route.name === name) return
       this.$router.push({ name })
     }
   }
@@ -57,6 +69,12 @@ export default {
     justify-content: center;
     align-items: center;
     padding: 10px 0px;
+    &_text {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
 }
 .drop_down /deep/.ivu-select-dropdown{

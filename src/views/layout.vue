@@ -5,6 +5,7 @@
           collapsible
           v-model="isCollapsible"
           hide-trigger
+
         >
           <side-menu
             :isCollapsible="isCollapsible"

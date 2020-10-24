@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Submenu :name="parent.name">
+    <Submenu :name="parent.name" >
        <template slot="title">
           <Icon v-if="parent.meta && parent.meta.icon" :type="parent.meta.icon" />
           {{ sideMenuText(parent) }}

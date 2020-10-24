@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Spin } from 'view-design'
+// import { Spin } from 'view-design'
 import { baseURL } from '../config'
 import { getToken } from '@/lib/util'
 
@@ -21,7 +21,7 @@ class HttpRequest {
   interceptors (instance, url) {
     instance.interceptors.request.use(config => {
       if (!Object.keys(this.queue).length) {
-        Spin.show()
+        // Spin.show()
       }
       this.queue[url] = true
       config.headers['Authorization'] = `Bearer ${getToken()}`
@@ -31,12 +31,12 @@ class HttpRequest {
     })
     instance.interceptors.response.use(res => {
       Reflect.deleteProperty(this.queue, url)
-      Spin.hide()
+      // Spin.hide()
       const { data, status } = res
       return { data, status }
     }, error => {
       Reflect.deleteProperty(this.queue, url)
-      Spin.hide()
+      // Spin.hide()
       return Promise.reject(error)
     })
   }
