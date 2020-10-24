@@ -1,12 +1,12 @@
 import axios from 'axios'
-// import { Spin } from 'view-design'
+import { Spin } from 'view-design'
 import { baseURL } from '../config'
 import { getToken } from '@/lib/util'
 
 class HttpRequest {
   constructor (baseUrl = baseURL) {
     this.baseUrl = baseUrl
-    this.queue = {}
+    this.queue = new Set()
   }
   getInsideConfig () {
     const config = {
@@ -18,25 +18,29 @@ class HttpRequest {
     }
     return config
   }
+  clear (queue, url, setTime) {
+    queue.delete(url)
+    clearTimeout(setTime)
+    Spin.hide()
+  }
   interceptors (instance, url) {
+    var setTime
     instance.interceptors.request.use(config => {
-      if (!Object.keys(this.queue).length) {
-        // Spin.show()
+      if (!this.queue.size) {
+        setTime = setTimeout(() => Spin.show(), 100)
       }
-      this.queue[url] = true
+      this.queue.add(url)
       config.headers['Authorization'] = `Bearer ${getToken()}`
       return config
     }, error => {
       return Promise.reject(error)
     })
     instance.interceptors.response.use(res => {
-      Reflect.deleteProperty(this.queue, url)
-      // Spin.hide()
+      this.clear(this.queue, url, setTime)
       const { data, status } = res
       return { data, status }
     }, error => {
-      Reflect.deleteProperty(this.queue, url)
-      // Spin.hide()
+      this.clear(this.queue, url, setTime)
       return Promise.reject(error)
     })
   }
