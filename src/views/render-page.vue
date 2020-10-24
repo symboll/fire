@@ -12,7 +12,7 @@
   </div>
 </template>
 <script>
-import List from '@/components/renderFunc'
+import List from '@/components/render-func'
 export default {
   name: 'render-page',
   components: {

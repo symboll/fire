@@ -6,6 +6,14 @@
           v-model="isCollapsible"
           hide-trigger
         >
+          <side-menu
+            :isCollapsible="isCollapsible"
+            :list="routes"
+          >
+            <div class="logo_area">
+              Logo
+            </div>
+          </side-menu>
         </Sider>
         <Layout>
           <Header class="layout_header">
@@ -26,8 +34,15 @@
   </div>
 </template>
 <script>
+import SideMenu from '@/components/side-menu'
 export default {
   name: 'layout',
+  components: {
+    SideMenu
+  },
+  props: {
+
+  },
   data () {
     return {
       isCollapsible: false
@@ -39,6 +54,9 @@ export default {
         'trigger_icon',
         this.isCollapsible ? 'rotate' : ''
       ]
+    },
+    routes () {
+      return this.$router.options.routes[0].children
     }
   },
   methods: {
@@ -74,5 +92,15 @@ export default {
       height: 100%;
     }
   }
+}
+
+.logo_area{
+  background: #fff;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #efefef;
 }
 </style>

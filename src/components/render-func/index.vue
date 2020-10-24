@@ -8,7 +8,7 @@
   </ul>
 </template>
 <script>
-import renderFunc from './renderFunc'
+import renderFunc from './render-func'
 export default {
   name: 'list',
   components: {
