@@ -3,15 +3,20 @@ import { setToken } from '@/lib/util'
 
 const state = {
   moduleKey: 'ssss',
-  username: ''
+  username: '',
+  avatar: ''
 }
 
 const mutations = {
   SET_USER_NAME (state, params) {
     state.username = params
   },
+  SET_USER_AVATAR (state, params) {
+    state.avatar = params
+  },
   LOGOUT (state, params) {
     state.username = ''
+    state.avatar = ''
     setToken('')
   }
 }
@@ -35,6 +40,7 @@ const actions = {
        * setToken(res.data.token)
        */
         commit('SET_USER_NAME', res.data.username)
+        commit('SET_USER_AVATAR', res.data.avatar)
         resolve()
       }).catch(err => {
         reject(err.response.data)

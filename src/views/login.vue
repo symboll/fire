@@ -1,19 +1,24 @@
 <template>
-  <Form ref="form" :model="formData" :rules="rules" inline>
-    <FormItem prop="user">
-      <Input type="text" v-model="formData.username" placeholder="Username">
-        <Icon type="ios-person-outline" slot="prepend"></Icon>
-      </Input>
-    </FormItem>
-    <FormItem prop="password">
-      <Input type="password" v-model="formData.password" placeholder="Password">
-        <Icon type="ios-lock-outline" slot="prepend"></Icon>
-      </Input>
-    </FormItem>
-    <FormItem>
-      <Button type="primary" @click="handleSubmit">登录</Button>
-    </FormItem>
-  </Form>
+  <div class="login">
+    <Card class="login_card">
+      <p slot="title">Admin System Login</p>
+      <Form ref="form" :model="formData" :rules="rules" >
+        <FormItem prop="user">
+          <i-input type="text" v-model="formData.username" placeholder="Username">
+            <Icon type="ios-person-outline" slot="prepend"></Icon>
+          </i-input>
+        </FormItem>
+        <FormItem prop="password">
+          <i-input type="password" v-model="formData.password" placeholder="Password">
+            <Icon type="ios-lock-outline" slot="prepend"></Icon>
+          </i-input>
+        </FormItem>
+        <FormItem>
+          <Button type="primary" style="width:100%" @click="handleSubmit">登录</Button>
+        </FormItem>
+      </Form>
+    </Card>
+  </div>
 </template>
 
 <script>
@@ -57,5 +62,21 @@ export default {
 }
 
 </script>
-<style scoped>
+<style lang="less" scoped>
+.login{
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background: url(../assets/image/login-bg.png) no-repeat;
+  &_card {
+    width: 300px;
+    margin-right: 160px;
+    p {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
 </style>
