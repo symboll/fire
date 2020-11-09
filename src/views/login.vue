@@ -3,7 +3,7 @@
     <Card class="login_card">
       <p slot="title">Admin System Login</p>
       <Form ref="form" :model="formData" :rules="rules" >
-        <FormItem prop="user">
+        <FormItem prop="username">
           <i-input type="text" v-model="formData.username" placeholder="Username">
             <Icon type="ios-person-outline" slot="prepend"></Icon>
           </i-input>
