@@ -156,10 +156,6 @@ export default {
     statsInit () {
       this.stats = new Stats()
       this.stats.setMode(0) // 0: fps, 1: ms
-      // this.stats.domElement.style.position = 'absolute'
-      // this.stats.domElement.style.left = '0px'
-      // this.stats.domElement.style.top = '0px'
-
       this.$refs.stats.appendChild(this.stats.domElement)
     }
 
@@ -167,20 +163,8 @@ export default {
   mounted () {
     this.init()
   },
-  destroyed () {
+  beforeDestroy () {
     cancelAnimationFrame(this.requestAnimationFrameId)
-    this.stats = null
-    this.controls = null
-
-    this.scene = null
-    this.camera = null
-    this.renderer = null
-    this.spotLight = null
-    this.ambientLight = null
-    // this.axes = null
-    this.plane = null
-    this.sphere = null // 球体
-    this.step = 0
     this.gui.domElement.remove()
   }
 }

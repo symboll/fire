@@ -194,18 +194,8 @@ export default {
   mounted () {
     this.init()
   },
-  destroyed () {
+  beforeDestroy () {
     cancelAnimationFrame(this.requestAnimationFrameId)
-    this.scene = null
-    this.camera = null
-    this.renderer = null
-    this.spotLight = null
-    this.plane = null
-    this.step = 0
-    this.mesh = null
-    this.controlPoints = null
-    this.stats = null
-    this.controls = null
     this.gui.domElement.remove()
   }
 }

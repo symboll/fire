@@ -121,15 +121,10 @@ export default {
   mounted () {
     this.init()
   },
-  destroyed () {
+  beforeDestroy () {
     document.removeEventListener('mousemove', this.onDocumentMouseMove, false)
     window.removeEventListener('resize', this.onWindowResize, false)
     cancelAnimationFrame(this.requestAnimationFrameId)
-    this.scene = null
-    this.camera = null
-    this.renderer = null
-    this.particles = null
-    this.particle = null
   }
 }
 </script>
