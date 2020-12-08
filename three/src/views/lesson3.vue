@@ -40,65 +40,63 @@ class Controls {
   }
 }
 
+
+let scene = null
+let camera = null
+let renderer = null
+let spotLight = null
+// let axes = null
+let plane = null
+// let cube = null
+// let sphere = null
+let step = 0
+let mesh = null
+let controlPoints = []
+let stats = null
+let controls = null
+let gui = null
+let requestAnimationFrameId = null
+
 export default {
   name: 'lesson3',
-  data () {
-    return {
-      scene: null,
-      camera: null,
-      renderer: null,
-      spotLight: null,
-      plane: null,
-      step: 0,
-      mesh: null,
-      controlPoints: [],
-
-      stats: null,
-      controls: null,
-      gui: null,
-      requestAnimationFrameId: null
-    }
-  },
   methods: {
     init () {
       this.statsInit()
       // 场景
-      this.scene = new THREE.Scene()
+      scene = new THREE.Scene()
 
       // 相机
-      this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000)
-      this.camera.position.x = -30
-      this.camera.position.y = 40
-      this.camera.position.z = 30
-      this.camera.lookAt(this.scene.position)
-      // this.camera.lookAt(new THREE.Vector3(5,0,0));
+      camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000)
+      camera.position.x = -30
+      camera.position.y = 40
+      camera.position.z = 30
+      camera.lookAt(scene.position)
+      // camera.lookAt(new THREE.Vector3(5,0,0));
 
       // 渲染器
-      this.renderer = new THREE.WebGLRenderer()
-      this.renderer.setClearColor(new THREE.Color(0xEEEEEE)) // 设置renderer 的背景色
-      this.renderer.setSize(window.innerWidth, window.innerHeight) // 设置renderer 的视图大小
-      this.renderer.shadowMapEnabled = true // 开启阴影
+      renderer = new THREE.WebGLRenderer()
+      renderer.setClearColor(new THREE.Color(0xEEEEEE)) // 设置renderer 的背景色
+      renderer.setSize(window.innerWidth, window.innerHeight) // 设置renderer 的视图大小
+      renderer.shadowMapEnabled = true // 开启阴影
 
       // 聚光灯光源
-      this.spotLight = new THREE.SpotLight(0xffffff)
-      this.spotLight.position.set(-40, 60, 10)
-      this.spotLight.castShadow = true
-      this.scene.add(this.spotLight)
+      spotLight = new THREE.SpotLight(0xffffff)
+      spotLight.position.set(-40, 60, 10)
+      spotLight.castShadow = true
+      scene.add(spotLight)
 
       // 添加平面plane
       let planeGeometry = new THREE.PlaneGeometry(60, 40, 1, 1)
       let planeMaterial = new THREE.MeshLambertMaterial({ color: 0xffffff })
-      this.plane = new THREE.Mesh(planeGeometry, planeMaterial)
-      this.plane.receiveShadow = true // 开启接收阴影
-      this.plane.rotation.x = -0.5 * Math.PI
-      this.plane.position.x = 0
-      this.plane.position.y = 0
-      this.plane.position.z = 0
-      this.scene.add(this.plane)
+      plane = new THREE.Mesh(planeGeometry, planeMaterial)
+      plane.receiveShadow = true // 开启接收阴影
+      plane.rotation.x = -0.5 * Math.PI
+      plane.position.x = 0
+      plane.position.y = 0
+      plane.position.z = 0
+      scene.add(plane)
 
-      this.$refs.three.appendChild(this.renderer.domElement)
-
-      this.step = 0
+      this.$refs.three.appendChild(renderer.domElement)
 
       let vertices = [
         new THREE.Vector3(1, 3, 1),
@@ -136,58 +134,58 @@ export default {
         new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true })
       ]
 
-      this.mesh = THREE.SceneUtils.createMultiMaterialObject(geom, materials)
-      this.mesh.children.forEach(e => {
+      mesh = THREE.SceneUtils.createMultiMaterialObject(geom, materials)
+      mesh.children.forEach(e => {
         e.castShadow = true
       })
 
-      this.scene.add(this.mesh)
+      scene.add(mesh)
 
-      this.controlPoints.push(new CubePoint(3, 5, 3))
-      this.controlPoints.push(new CubePoint(3, 5, 0))
-      this.controlPoints.push(new CubePoint(3, 0, 3))
-      this.controlPoints.push(new CubePoint(3, 0, 0))
-      this.controlPoints.push(new CubePoint(0, 5, 0))
-      this.controlPoints.push(new CubePoint(0, 5, 3))
-      this.controlPoints.push(new CubePoint(0, 0, 0))
-      this.controlPoints.push(new CubePoint(0, 0, 3))
+      controlPoints.push(new CubePoint(3, 5, 3))
+      controlPoints.push(new CubePoint(3, 5, 0))
+      controlPoints.push(new CubePoint(3, 0, 3))
+      controlPoints.push(new CubePoint(3, 0, 0))
+      controlPoints.push(new CubePoint(0, 5, 0))
+      controlPoints.push(new CubePoint(0, 5, 3))
+      controlPoints.push(new CubePoint(0, 0, 0))
+      controlPoints.push(new CubePoint(0, 0, 3))
 
-      this.gui = new dat.GUI()
-      this.controls = new Controls(this.scene, this.mesh)
-      this.gui.add(this.controls, 'clone')
+      gui = new dat.GUI()
+      controls = new Controls(scene, mesh)
+      gui.add(controls, 'clone')
 
       for (var i = 0; i < 8; i++) {
-        let f1 = this.gui.addFolder('Vertices ' + (i + 1))
-        f1.add(this.controlPoints[i], 'x', -10, 10)
-        f1.add(this.controlPoints[i], 'y', -10, 10)
-        f1.add(this.controlPoints[i], 'z', -10, 10)
+        let f1 = gui.addFolder('Vertices ' + (i + 1))
+        f1.add(controlPoints[i], 'x', -10, 10)
+        f1.add(controlPoints[i], 'y', -10, 10)
+        f1.add(controlPoints[i], 'z', -10, 10)
       }
 
       this.renderScene()
     },
     renderScene () {
-      this.stats.update()
+      stats.update()
       let vertices = []
       for (var i = 0; i < 8; i++) {
-        vertices.push(new THREE.Vector3(this.controlPoints[i].x, this.controlPoints[i].y, this.controlPoints[i].z))
+        vertices.push(new THREE.Vector3(controlPoints[i].x, controlPoints[i].y, controlPoints[i].z))
       }
 
-      this.mesh.children.forEach(e => {
+      mesh.children.forEach(e => {
         e.geometry.vertices = vertices
         e.geometry.verticesNeedUpdate = true
         e.geometry.computeFaceNormals()
       })
-      this.requestAnimationFrameId = requestAnimationFrame(this.renderScene)
-      this.renderer.render(this.scene, this.camera)
+      requestAnimationFrameId = requestAnimationFrame(this.renderScene)
+      renderer.render(scene, camera)
     },
     statsInit () {
-      this.stats = new Stats()
-      this.stats.setMode(0) // 0: fps, 1: ms
-      // this.stats.domElement.style.position = 'absolute'
-      // this.stats.domElement.style.left = '0px'
-      // this.stats.domElement.style.top = '0px'
+      stats = new Stats()
+      stats.setMode(0) // 0: fps, 1: ms
+      // stats.domElement.style.position = 'absolute'
+      // stats.domElement.style.left = '0px'
+      // stats.domElement.style.top = '0px'
 
-      this.$refs.stats.appendChild(this.stats.domElement)
+      this.$refs.stats.appendChild(stats.domElement)
     }
 
   },
@@ -195,8 +193,8 @@ export default {
     this.init()
   },
   beforeDestroy () {
-    cancelAnimationFrame(this.requestAnimationFrameId)
-    this.gui.domElement.remove()
+    cancelAnimationFrame(requestAnimationFrameId)
+    gui.domElement.remove()
   }
 }
 </script>
